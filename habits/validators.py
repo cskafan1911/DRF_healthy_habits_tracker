@@ -16,8 +16,8 @@ class HabitsValidator(HabitsValidatorMixin):
     """
 
     def __call__(self, value):
-        related_habit = value.get('related_habit')
-        reward = value.get('reward')
+        related_habit = dict(value).get('related_habit')
+        reward = dict(value).get('reward')
         if related_habit is not None and reward is not None:
             raise serializers.ValidationError(
                 'В модели не должно быть заполнено одновременно и поле вознаграждения, и поле связанной привычки. '
@@ -33,9 +33,10 @@ class RelatedHabitValidator(HabitsValidatorMixin):
     def __call__(self, value):
         related_habit = value.get('related_habit')
 
-        if related_habit is not None and not related_habit.pleasant_habit:
-            raise serializers.ValidationError(
-                'В связанные привычки могут попадать только привычки с признаком приятной привычки.')
+        if related_habit:
+            if not related_habit.pleasant_habit:
+                raise serializers.ValidationError(
+                    'В связанные привычки могут попадать только привычки с признаком приятной привычки.')
 
 
 class PleasantHabitValidator(HabitsValidatorMixin):
@@ -45,9 +46,9 @@ class PleasantHabitValidator(HabitsValidatorMixin):
     """
 
     def __call__(self, value):
-        pleasant_habit = value.get('pleasant_habit')
-        related_habit = value.get('related_habit')
-        reward = value.get('reward')
+        pleasant_habit = dict(value).get('pleasant_habit')
+        related_habit = dict(value).get('related_habit')
+        reward = dict(value).get('reward')
 
         if pleasant_habit:
             if reward is not None or related_habit is not None:
@@ -61,9 +62,9 @@ class TimeCompleteValidator(HabitsValidatorMixin):
     """
 
     def __call__(self, value):
-        time = value.get('time_to_complete')
+        time = dict(value).get('time_to_complete')
         if time:
-            if time > 120:
+            if int(time) > 120:
                 raise serializers.ValidationError('Время выполнения должно быть не больше 120 секунд.')
 
 
@@ -73,6 +74,6 @@ class PeriodValidator(HabitsValidatorMixin):
     """
 
     def __call__(self, value):
-        period = value.get('period')
-        if period > 7:
+        period = dict(value).get('period')
+        if int(period) > 7:
             raise serializers.ValidationError('Нельзя выполнять привычку реже, чем 1 раз в 7 дней.')

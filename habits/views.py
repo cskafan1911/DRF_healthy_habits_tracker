@@ -71,11 +71,17 @@ class HabitUpdateAPIView(generics.UpdateAPIView):
 
     def perform_update(self, serializer):
         """
-        Метод привязывает пользователя и созданную им привычку.
+        Метод для обновления привычек.
         """
-        habit = serializer.save()
-        habit.user = self.request.user
-        habit.save()
+        update_habit = serializer.save()
+        update_habit.user = self.request.user
+
+        if update_habit.related_habit:
+            update_habit.reward = None
+        if update_habit.pleasant_habit:
+            update_habit.related_habit = None
+
+        update_habit.save()
 
 
 class HabitDeleteAPIView(generics.DestroyAPIView):
