@@ -2,6 +2,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from habits.models import Habit
+from habits.paginators import HabitsPaginator
 from habits.permissions import IsUserHabit
 from habits.serializers import HabitSerializer
 
@@ -31,6 +32,7 @@ class HabitUserListAPIView(generics.ListAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
     permission_classes = [IsAuthenticated, IsUserHabit]
+    pagination_class = HabitsPaginator
 
     def get_queryset(self):
         """
@@ -66,6 +68,14 @@ class HabitUpdateAPIView(generics.UpdateAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
     permission_classes = [IsAuthenticated, IsUserHabit]
+
+    def perform_update(self, serializer):
+        """
+        Метод привязывает пользователя и созданную им привычку.
+        """
+        habit = serializer.save()
+        habit.user = self.request.user
+        habit.save()
 
 
 class HabitDeleteAPIView(generics.DestroyAPIView):
