@@ -40,7 +40,7 @@ class HabitUserListAPIView(generics.ListAPIView):
         """
         queryset = Habit.objects.filter(user=self.request.user)
 
-        return queryset
+        return queryset.order_by('id')
 
 
 class HabitIsPublicListAPIView(generics.ListAPIView):
@@ -57,7 +57,7 @@ class HabitIsPublicListAPIView(generics.ListAPIView):
         """
         queryset = Habit.objects.filter(is_public=True)
 
-        return queryset
+        return queryset.order_by('id')
 
 
 class HabitUpdateAPIView(generics.UpdateAPIView):
