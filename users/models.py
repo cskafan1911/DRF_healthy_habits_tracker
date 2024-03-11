@@ -9,6 +9,7 @@ class User(AbstractUser):
 
     username = None
     email = models.EmailField(unique=True, verbose_name='email')
+    telegram_id = models.IntegerField(verbose_name='Telegram_id', blank=True, null=True)
     first_name = models.CharField(max_length=150, verbose_name='Имя пользователя', blank=True, null=True)
     last_name = models.CharField(max_length=150, verbose_name='Фамилия пользователя', blank=True, null=True)
     avatar = models.ImageField(upload_to='users/', verbose_name='User Avatar', blank=True, null=True)
