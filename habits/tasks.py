@@ -1,6 +1,5 @@
 from _datetime import datetime, timedelta
 
-import pytz
 import requests
 
 from celery import shared_task

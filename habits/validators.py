@@ -21,7 +21,8 @@ class HabitsValidator(HabitsValidatorMixin):
         if related_habit is not None and reward is not None:
             raise serializers.ValidationError(
                 'В модели не должно быть заполнено одновременно и поле вознаграждения, и поле связанной привычки. '
-                'Можно заполнить только одно из двух полей.')
+                'Можно заполнить только одно из двух полей.'
+            )
 
 
 class RelatedHabitValidator(HabitsValidatorMixin):
@@ -36,7 +37,8 @@ class RelatedHabitValidator(HabitsValidatorMixin):
         if related_habit:
             if not related_habit.pleasant_habit:
                 raise serializers.ValidationError(
-                    'В связанные привычки могут попадать только привычки с признаком приятной привычки.')
+                    'В связанные привычки могут попадать только привычки с признаком приятной привычки.'
+                )
 
 
 class PleasantHabitValidator(HabitsValidatorMixin):
@@ -53,7 +55,8 @@ class PleasantHabitValidator(HabitsValidatorMixin):
         if pleasant_habit:
             if reward is not None or related_habit is not None:
                 raise serializers.ValidationError(
-                    'У приятной привычки не может быть вознаграждения или связанной привычки.')
+                    'У приятной привычки не может быть вознаграждения или связанной привычки.'
+                )
 
 
 class TimeCompleteValidator(HabitsValidatorMixin):
