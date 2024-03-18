@@ -13,9 +13,9 @@ CREATE DATABASE NAME_DB
 ```
 3) Создать в корневой директории проекта файл .env и дописать в переменные окружения данные. (Шаблон можно посмотреть в файле .env.sample)
 ```
-USER_POSTGRES=имя пользователя postgresql
-DB_PASS=пароль пользователя postgresql
-NAME_DB=имя базы данных для проекта
+POSTGRES_USER=имя пользователя postgresql
+POSTGRES_PASSWORD=пароль пользователя postgresql
+POSTGRES_DB=имя базы данных для проекта
 SECRET_KEY=секретный ключ Django
 TELEGRAM_BOT = token для telegram
 ```
