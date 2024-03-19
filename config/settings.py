@@ -85,7 +85,9 @@ DATABASES = {
         'NAME': os.getenv('POSTGRES_DB'),
         'USER': os.getenv('POSTGRES_USER'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        'HOST': 'db'
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': os.getenv('POSTGRES_PORT')
+
     }
 }
 
@@ -213,11 +215,14 @@ CORS_ALLOW_ALL_ORIGINS = False
 
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_BOT')
 
+REDIS_HOST = os.getenv('REDIS_HOST')
+REDIS_PORT = os.getenv('REDIS_PORT')
+
 # URL-адрес брокера сообщений
-CELERY_BROKER_URL = f'redis://redis:6379'
+CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}'
 
 # URL-адрес брокера результатов, также Redis
-CELERY_RESULT_BACKEND = f'redis://redis:6379'
+CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}'
 
 # Часовой пояс для работы Celery
 CELERY_TIMEZONE = "Europe/Moscow"

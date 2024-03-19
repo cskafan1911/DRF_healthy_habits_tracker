@@ -20,8 +20,12 @@ CREATE DATABASE NAME_DB
 POSTGRES_USER=имя пользователя postgresql
 POSTGRES_PASSWORD=пароль пользователя postgresql
 POSTGRES_DB=имя базы данных для проекта
+POSTGRES_HOST=<имя контейнера с базой> в случае докера
+POSTGRES_PORT=порт для базы postgresql
 SECRET_KEY=секретный ключ Django
 TELEGRAM_BOT = token для telegram
+REDIS_HOST=<имя контейнера с базой> из докера
+REDIS_PORT=порт для redis
 ```
 5) Применить миграции
 ```
