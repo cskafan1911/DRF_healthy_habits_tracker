@@ -22,9 +22,8 @@ def send_message_telegram():
     time_now = timezone.localtime()
     time = (time_now + relativedelta(minutes=5)).strftime('%H:%M')
     date_now = datetime.now().date().strftime('%Y-%m-%d')
-    habit = Habit.objects.all()
-    print(habit)
     habits = Habit.objects.filter(time=time, pleasant_habit=False, date_start=date_now)
+
     if habits:
         for habit in habits:
             requests.post(
